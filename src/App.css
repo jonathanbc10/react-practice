@@ -31,3 +31,8 @@ address {
 .navbar-dark {
   background-color: #512da8;
 }
+
+.card > a {
+  color: #424242;
+  text-decoration: none;
+}
