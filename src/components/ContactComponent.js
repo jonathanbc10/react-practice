@@ -70,12 +70,14 @@ class Contact extends Component {
 
         const reg = /^\d+$/;
 
+        const emailRegex = /(?:[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+
         if (this.state.touched.telnum && !reg.test(telnum)) {
             errors.telnum = 'Tel. Number should contain only numbers!'
         }
 
-        if (this.state.touched.email && email.split('').filter(x => x === '@').length !== 1) {
-            errors.email = 'Email should contain a @'
+        if (this.state.touched.email && !emailRegex.test(email)) {
+            errors.email = 'Wrong email format'
         }
 
         return errors;
@@ -217,7 +219,8 @@ class Contact extends Component {
                                     </FormGroup>
                                 </Col>
                                 <Col md={{ size: 3, offset: 1 }}>
-                                    <Input type="select" id="contactType" name="contactType"
+                                    <Input
+                                        type="select" id="contactType" name="contactType"
                                         value={this.state.contactType}
                                         onChange={this.handleInputChange}
                                     >
